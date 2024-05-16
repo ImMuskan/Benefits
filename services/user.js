@@ -1,7 +1,7 @@
 const { hash, compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 
-const { User, MyModule, MyVideo, MyBadge } = require("../models/User");
+const { User,Benefits } = require("../models/User");
 
 exports.register = async (req, res, next) => {
   const { username, email, password, role, age } = req.body;
@@ -60,3 +60,11 @@ exports.getUser = async (req, res, next) => {
   }
 };
 
+
+exports.getbenefits = async (req, res, next) => {
+  try {
+    return res.status(200).json(await Benefits.find().lean());
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};

@@ -7,7 +7,7 @@ const db = require("./config/db");
 const app = express();
 const cors = require('cors');
 app.use(cors());
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: "./config/.env" });
 
 if (process.env.NODE_ENV === "production") console.log = function () { };
 
@@ -16,6 +16,7 @@ if (process.env.NODE_ENV === "development") app.use(logger("dev"));
 db(app);
 
 const { User,Benefits } = require("./models/User");
+const { Admin } = require("./models/admin");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +35,10 @@ Benefits.createCollection().then(() => {
 }).catch(err => {
     console.error("Error creating User model:", err);
 })
-
+Admin.createCollection().then(() => {
+    console.log("Admin model created!");
+}).catch(err => {
+    console.error("Error creating User model:", err);
+})
 
 module.exports = app;
