@@ -1,7 +1,7 @@
 
 const { User } = require("../models/User");
 const { Admin } = require("../models/admin")
-
+const { Benefits } = require("../models/User");
 exports.login = async (req, res, next) => {
   const { username, password } = req.body;
   try {
@@ -80,16 +80,15 @@ exports.getAuthAdmin = async (req, res, next) => {
   }
 };
 
-/*exports.addModule = async (req, res, next) => {
-  const { title, image, content } = req.body;
-  if (!title || !image || !content)
+exports.addbenefits = async (req, res, next) => {
+  const { benefit_name, description, elegibility_criteria, coverage_amount, image } = req.body;
+  if (!benefit_name || !description || !elegibility_criteria || !coverage_amount|| !image)
     return res.status(400).send("Please fill in all the required fields!");
-
   try {
-    const newModule = new MyModule({ title, image, content });
+    const newModule = new Benefits({ benefit_name, description, elegibility_criteria, coverage_amount, image});
     await newModule.save();
-    return res.status(201).json({ message: 'Module added successfully' });
+    return res.status(201).json({ message: 'Benefit added successfully' });
   } catch (error) {
     return res.status(500).send(error.message);
   }
-};*/
+};

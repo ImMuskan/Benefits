@@ -1,7 +1,7 @@
 const { hash, compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 
-const { User,Benefits } = require("../models/User");
+const { User, Benefits } = require("../models/User");
 
 exports.register = async (req, res, next) => {
   const { username, email, password, role, age } = req.body;
@@ -68,3 +68,19 @@ exports.getbenefits = async (req, res, next) => {
     return res.status(500).json(error);
   }
 };
+
+
+exports.registerForBenefit = async (req, res, next) => {
+  const { u_id, b_id } = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(u_id, {
+      $addToSet: {
+        added_benefits
+          : b_id
+      }
+    }, { new: true });
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}

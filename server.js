@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "development") app.use(logger("dev"));
 
 db(app);
 
-const { User,Benefits } = require("./models/User");
+const { User, Benefits } = require("./models/User");
 const { Admin } = require("./models/admin");
 
 app.use(express.json());

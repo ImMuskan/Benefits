@@ -24,15 +24,10 @@ const benefitsSchema = new mongoose.Schema(
       trim: true,
       required: [true, "coverage_amount is required"],
     },
-    start_date: {
+    image: {
       type: String,
       trim: true,
-      required: [true, "start_date is required"],
-    },
-    end_date: {
-      type: String,
-      trim: true,
-      required: [true, "end_date is required"],
+      required: [true, "image is required"],
     }
   })
 const userSchema = new mongoose.Schema(
