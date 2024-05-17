@@ -73,10 +73,9 @@ exports.updateUser = async (req, res, next) => {
 };
 
 exports.deleteUser = async (req, res, next) => {
-  const { id } = req.params;
+  const uid = req.headers['userid'];
   try {
-    if (!req.admin) return res.status(400).send("You dont have permission");
-    await User.deleteOne({ id });
+    await User.deleteOne({ uid });
     return res.status(200).send("User has been deleted");
   } catch (error) {
     return res.status(500).json(error);
