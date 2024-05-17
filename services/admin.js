@@ -2,26 +2,40 @@
 const { User } = require("../models/User");
 const { Admin } = require("../models/admin")
 const { Benefits } = require("../models/User");
-exports.login = async (req, res, next) => {
-  const { username, password } = req.body;
+const { hash, compare } = require("bcryptjs");
+const { sign } = require("jsonwebtoken");
+const admin = require("../models/admin");
+
+exports.register = async (req, res, next) => {
+  const { username, password, role } = req.body;
+  if (!username ||  !password || !role )
+    return res.status(400).send("Please fill in all the required fields!")
   try {
-    const admin = await Admin.findOne({ username }).lean();
-    if (!admin) return res.status(404).send("Invalid credentials");
-    if (password != admin.password) return res.status(400).send("Invalid credentials");
-    return res.status(200).json({ admin });
+    const userObj = { username, role };
+    const hashedPwd = await hash(password, 12);
+    userObj.password = hashedPwd;
+    const user = await new Admin(userObj).save();
+    const token = sign({ [role]: admin }, "482d0829e5856b8340k3945p7487c5485x0940z", { expiresIn: 360000 });
+    return res
+      .status(201)
+      .json( { token, admin: { ...user._doc, password: null } });
   } catch (error) {
     return res.status(500).send(error.message);
   }
 };
-exports.register = async (req, res, next) => {
+
+
+exports.login = async (req, res, next) => {
   const { username, password } = req.body;
-  if (!username || !password)
-    return res.status(400).send("Please fill in all the required fields!")
   try {
-    const userObj = { username, password };
-    const user = await new Admin(userObj).save();
-    return res
-      .status(200).json({ user });
+    const user = await Admin.findOne({ username }).lean();
+    if (!user) return res.status(404).send("Invalid credentials");
+    if (user.role !== "admin")
+      return res.status(404).send("Invalid credentials..");
+    const isMatch = await compare(password, user.password);
+    if (!isMatch) return res.status(400).send("Invalid credentials");
+    const token = sign({ user }, "482d0829e5856b8340k3945p7487c5485x0940z", { expiresIn: 360000 });
+    return res.status(200).json({ token, user: { ...user, password: null } });
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -82,10 +96,10 @@ exports.getAuthAdmin = async (req, res, next) => {
 
 exports.addbenefits = async (req, res, next) => {
   const { benefit_name, description, elegibility_criteria, coverage_amount, image } = req.body;
-  if (!benefit_name || !description || !elegibility_criteria || !coverage_amount|| !image)
+  if (!benefit_name || !description || !elegibility_criteria || !coverage_amount || !image)
     return res.status(400).send("Please fill in all the required fields!");
   try {
-    const newModule = new Benefits({ benefit_name, description, elegibility_criteria, coverage_amount, image});
+    const newModule = new Benefits({ benefit_name, description, elegibility_criteria, coverage_amount, image });
     await newModule.save();
     return res.status(201).json({ message: 'Benefit added successfully' });
   } catch (error) {

@@ -12,6 +12,11 @@ const adminSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "Password is required"],
+    },
+    role:{
+      type: String,
+      trim: true,
+      required: [true, "Role is required"],
     }
   })
 
