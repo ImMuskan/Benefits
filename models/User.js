@@ -32,12 +32,7 @@ const benefitsSchema = new mongoose.Schema(
     fields: []
 
   })
-const formsSchema = new mongoose.Schema(
-  {
-  formObject:{
-
-  }
-})
+  const formsSchema = new mongoose.Schema({}, { strict: false });
 const userSchema = new mongoose.Schema(
   {
     username: {
