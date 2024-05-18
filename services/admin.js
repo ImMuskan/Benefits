@@ -8,7 +8,7 @@ const admin = require("../models/admin");
 
 exports.register = async (req, res, next) => {
   const { username, password, role } = req.body;
-  if (!username ||  !password || !role )
+  if (!username || !password || !role)
     return res.status(400).send("Please fill in all the required fields!")
   try {
     const userObj = { username, role };
@@ -18,7 +18,7 @@ exports.register = async (req, res, next) => {
     const token = sign({ [role]: admin }, "482d0829e5856b8340k3945p7487c5485x0940z", { expiresIn: 360000 });
     return res
       .status(201)
-      .json( { token, admin: { ...user._doc, password: null } });
+      .json({ token, admin: { ...user._doc, password: null } });
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -75,7 +75,7 @@ exports.updateUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   const uid = req.headers['userid'];
   try {
-    await User.deleteOne({ uid });
+    await User.deleteOne({ _id: uid });
     return res.status(200).send("User has been deleted");
   } catch (error) {
     return res.status(500).json(error);
