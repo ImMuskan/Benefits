@@ -83,8 +83,9 @@ exports.deleteUser = async (req, res, next) => {
 };
 exports.deletebenefit = async (req, res, next) => {
   const bid = req.headers['bid'];
+  console.log(bid);
   try {
-    await Benefits.deleteOne({ bid });
+    await Benefits.deleteOne({ _id: bid });
     return res.status(200).send("Benefit has been deleted");
   } catch (error) {
     return res.status(500).json(error);
