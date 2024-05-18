@@ -33,11 +33,7 @@ const benefitsSchema = new mongoose.Schema(
 
   })
 const formsSchema = new mongoose.Schema(
-  {
-
-    fields: []
-
-  })
+  {})
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -84,5 +80,5 @@ const userSchema = new mongoose.Schema(
 module.exports = {
   User: mongoose.model("User", userSchema),
   Benefits: mongoose.model("Benefits", benefitsSchema),
-  Forms:mongoose.model("forms",formsSchema)
+  Forms: mongoose.model("forms", formsSchema)
 };
