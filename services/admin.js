@@ -128,3 +128,16 @@ exports.addapprove = async (req, res, next) => {
     return res.status(500).json(error);
   }
 }
+exports.deleteben = async (req, res, next) => {
+  const { u_id, b_id } = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(u_id, {
+      $pull: {
+        added_benefits: b_id
+      }
+    }, { new: true });
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
