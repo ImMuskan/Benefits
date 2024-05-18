@@ -143,7 +143,7 @@ exports.deleteben = async (req, res, next) => {
 }
 exports.deleteform = async (req, res, next) => {
   const fid = req.headers['fid'];
-  console.log(bid);
+  console.log(fid);
   try {
     await Forms.deleteOne({ _id: fid });
     return res.status(200).send("Form entry has been deleted");
