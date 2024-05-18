@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "development") app.use(logger("dev"));
 db(app);
 
 const { User, Benefits } = require("./models/User");
-const { Admin } = require("./models/admin");
+const { Admin, RequestBenefitSchema} = require("./models/admin");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,5 +40,9 @@ Admin.createCollection().then(() => {
 }).catch(err => {
     console.error("Error creating User model:", err);
 })
-
+RequestBenefitSchema.createCollection().then(() => {
+    console.log("Requestbenefit model created!");
+}).catch(err => {
+    console.error("Error creating User model:", err);
+})
 module.exports = app;

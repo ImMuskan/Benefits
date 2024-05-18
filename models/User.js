@@ -65,6 +65,12 @@ const userSchema = new mongoose.Schema(
         ref: 'Benefits'
       }
     ],
+    approved_benefits: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Benefits'
+      }
+    ]
   })
 
 module.exports = {
