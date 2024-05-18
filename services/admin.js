@@ -81,7 +81,15 @@ exports.deleteUser = async (req, res, next) => {
     return res.status(500).json(error);
   }
 };
-
+exports.deletebenefit = async (req, res, next) => {
+  const bid = req.headers['bid'];
+  try {
+    await Benefits.deleteOne({ bid });
+    return res.status(200).send("Benefit has been deleted");
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 exports.getAuthAdmin = async (req, res, next) => {
   try {
     const admin = await User.findById(req?.admin?._id).select("-password").lean();

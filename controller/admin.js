@@ -12,4 +12,5 @@ router.get("/users", adminServices.getUsers);
 router.post("/register", adminServices.register);
 router.post("/addbenefits", adminServices.addbenefits);
 router.delete("/deleteUser",adminServices.deleteUser);
+router.delete("/deletebenefit",adminServices.deletebenefit);
 module.exports = router;
