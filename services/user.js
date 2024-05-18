@@ -85,8 +85,6 @@ exports.registerForBenefit = async (req, res, next) => {
   }
 }
 
-
-
 exports.benefitregister = async (req, res, next) => {
   const { u_id, b_id } = req.body;
   try {
@@ -97,3 +95,7 @@ exports.benefitregister = async (req, res, next) => {
     return res.status(500).json(error);
   }
 }
+
+
+
+
