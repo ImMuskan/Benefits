@@ -87,6 +87,7 @@ exports.registerForBenefit = async (req, res, next) => {
 
 exports.addforms = async (req, res, next) => {
   const { formObject } = req.body;
+  console.log(formObject)
   if (!formObject)
     return res.status(400).send("Please fill in all the required fields!");
   try {

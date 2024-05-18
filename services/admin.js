@@ -1,7 +1,7 @@
 
 const { User } = require("../models/User");
 const { Admin } = require("../models/admin")
-const { Benefits } = require("../models/User");
+const { Benefits,Forms } = require("../models/User");
 const { hash, compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 const admin = require("../models/admin");
@@ -141,3 +141,10 @@ exports.deleteben = async (req, res, next) => {
     return res.status(500).json(error);
   }
 }
+exports.getForms = async (req, res, next) => {
+  try {
+    return res.status(200).json(await Forms.find().lean());
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
