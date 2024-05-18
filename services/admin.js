@@ -141,6 +141,16 @@ exports.deleteben = async (req, res, next) => {
     return res.status(500).json(error);
   }
 }
+exports.deleteform = async (req, res, next) => {
+  const fid = req.headers['fid'];
+  console.log(bid);
+  try {
+    await Forms.deleteOne({ _id: fid });
+    return res.status(200).send("Form entry has been deleted");
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 exports.getForms = async (req, res, next) => {
   try {
     return res.status(200).json(await Forms.find().lean());

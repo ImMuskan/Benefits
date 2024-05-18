@@ -14,6 +14,7 @@ router.post("/register", adminServices.register);
 router.post("/addbenefits", adminServices.addbenefits);
 router.delete("/deleteUser",adminServices.deleteUser);
 router.delete("/deletebenefit",adminServices.deletebenefit);
+router.delete("/deleteform",adminServices.deleteform);
 router.put("/deleteben",adminServices.deleteben);
 router.put("/addapprove", adminServices.addapprove);
 
