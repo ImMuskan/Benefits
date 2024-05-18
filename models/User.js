@@ -28,7 +28,9 @@ const benefitsSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "image is required"],
-    }
+    }, 
+    fields: []
+
   })
 const userSchema = new mongoose.Schema(
   {
@@ -71,11 +73,6 @@ const userSchema = new mongoose.Schema(
         ref: 'Benefits'
       }
     ],
-    fields:[
-      {
-        
-      }
-    ]
   })
 
 module.exports = {
