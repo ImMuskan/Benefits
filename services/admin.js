@@ -103,11 +103,11 @@ exports.getAuthAdmin = async (req, res, next) => {
 };
 
 exports.addbenefits = async (req, res, next) => {
-  const { benefit_name, description, elegibility_criteria, coverage_amount, image } = req.body;
-  if (!benefit_name || !description || !elegibility_criteria || !coverage_amount || !image)
+  const { benefit_name, description, elegibility_criteria, coverage_amount, image,fields } = req.body;
+  if (!benefit_name || !description || !elegibility_criteria || !coverage_amount || !image||!fields)
     return res.status(400).send("Please fill in all the required fields!");
   try {
-    const newModule = new Benefits({ benefit_name, description, elegibility_criteria, coverage_amount, image });
+    const newModule = new Benefits({ benefit_name, description, elegibility_criteria, coverage_amount, image,fields });
     await newModule.save();
     return res.status(201).json({ message: 'Benefit added successfully' });
   } catch (error) {
