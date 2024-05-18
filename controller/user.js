@@ -11,6 +11,6 @@ router.get("/auth-user", isAuth, userServices.getAuthUser);
 router.get("/getbenefits",  userServices.getbenefits);
 router.get("/getUser",  userServices.getUser);
 router.put("/registerforbenefit", userServices.registerForBenefit);
-
+router.post("/addforms", userServices.addforms);
 
 module.exports = router;

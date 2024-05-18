@@ -28,7 +28,13 @@ const benefitsSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "image is required"],
-    }, 
+    },
+    fields: []
+
+  })
+const formsSchema = new mongoose.Schema(
+  {
+
     fields: []
 
   })
@@ -77,5 +83,6 @@ const userSchema = new mongoose.Schema(
 
 module.exports = {
   User: mongoose.model("User", userSchema),
-  Benefits: mongoose.model("Benefits", benefitsSchema)
+  Benefits: mongoose.model("Benefits", benefitsSchema),
+  Forms:mongoose.model("forms",formsSchema)
 };

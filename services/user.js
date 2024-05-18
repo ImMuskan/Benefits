@@ -1,7 +1,7 @@
 const { hash, compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 
-const { User, Benefits, RequestedBenefit } = require("../models/User");
+const { User, Benefits, Forms } = require("../models/User");
 
 exports.register = async (req, res, next) => {
   const { username, email, password, role, age } = req.body;
@@ -84,6 +84,19 @@ exports.registerForBenefit = async (req, res, next) => {
     return res.status(500).json(error);
   }
 }
+
+exports.addforms = async (req, res, next) => {
+  const { formObject } = req.body;
+  if (!formObject)
+    return res.status(400).send("Please fill in all the required fields!");
+  try {
+    const newModule = new Forms({ formObject});
+    await newModule.save();
+    return res.status(201).json({ message: 'Form added successfully' });
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
 
 exports.benefitregister = async (req, res, next) => {
   const { u_id, b_id } = req.body;
